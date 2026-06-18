@@ -55,6 +55,24 @@ function initializeViewSwitcher() {
     });
 }
 
+function initializeActionButtons() {
+    const saveBtn = document.getElementById("btn-save-inventory");
+    
+    saveBtn.addEventListener("click", () => {
+        if (!App.currentLocationId) return;
+        
+        // 1. Mark this specific location button as completed visually
+        const activeTab = document.querySelector(`#location-tabs button[data-location-id="${App.currentLocationId}"]`);
+        if (activeTab) {
+            // Add custom Pico styling indicators to signal completion
+            activeTab.setAttribute("aria-invalid", "false"); // Turns button outline border green in Pico!
+        }
+        
+        // 2. Alert user or automatically shift focus to the next room
+        console.log(`Location ID ${App.currentLocationId} marked complete in local cache.`);
+    });
+}
+
 /**
  * Handles the CSS toggle logic to hide the old view and show the new one.
  */
@@ -232,16 +250,16 @@ window.updateCount = function(mappingId, change) {
         App.unsavedCounts[mappingId] = 0;
     }
 
-    // Process new mathematical adjustments safely
     let newCount = App.unsavedCounts[mappingId] + change;
-    if (newCount < 0) newCount = 0; // Prevent inventory counts from dipping below zero
+    if (newCount < 0) newCount = 0; 
 
-    // Store value modification into state memory
     App.unsavedCounts[mappingId] = newCount;
 
-    // Instantly reflect internal changes inside input field display view
     const inputElement = document.getElementById(`input-map-${mappingId}`);
     if (inputElement) {
         inputElement.value = newCount;
     }
+
+    // NEW LINE: Auto-serialize object to string and save to the browser's storage
+    localStorage.setItem("pantry_pilot_counts", JSON.stringify(App.unsavedCounts));
 };
