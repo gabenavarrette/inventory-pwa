@@ -4,54 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Household Inventory & Budget</title>
-    <style>
-        /* We will add our CSS styles here in the next step */
-    </style>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="app-header">
-        <h1>PantryPilot</h1>
-        <div id="connection-status" class="status-badge loading">Connecting...</div>
+    <header class="container">
+        <hgroup>
+            <h1>PantryPilot</h1>
+            <p id="connection-status">Connecting to database...</p>
+        </hgroup>
     </header>
 
-    <main class="app-container">
+    <main class="container">
 
         <section id="view-inventory" class="app-view active">
-            <nav id="location-tabs" class="tabs-container">
-                </nav>
+            <nav id="location-tabs" aria-label="Location tabs"></nav>
 
-            <div id="inventory-list" class="items-list">
-                <p class="placeholder-text">Select a location to start counting...</p>
+            <div id="inventory-list">
+                <p class="loading-placeholder">Select a location to start counting...</p>
             </div>
 
-            <div class="action-container">
-                <button id="btn-save-inventory" class="btn btn-primary" disabled>Save Current Location</button>
-            </div>
+            <button id="btn-save-inventory" class="primary" disabled>Save Location Count</button>
         </section>
 
         <section id="view-orders" class="app-view">
             <h2>Dynamic Order Guide</h2>
-            <div id="budget-summary" class="budget-card">
+            
+            <article id="budget-summary">
                 <h3>Estimated Total: <span id="total-cost">$0.00</span></h3>
-                <div class="progress-bar-container">
-                    <div id="budget-progress" class="progress-bar" style="width: 0%"></div>
-                </div>
-            </div>
+                <progress id="budget-progress" value="0" max="100"></progress>
+            </article>
             
             <div id="order-guide-list">
-                <p class="placeholder-text">Complete your inventory check to generate your order list.</p>
+                <p>Complete your inventory check to generate your order list.</p>
             </div>
         </section>
 
         <section id="view-settings" class="app-view">
             <h2>System Settings</h2>
-            <div class="card">
-                <h3>Database Info</h3>
+            <article>
+                <h3>Database Metrics</h3>
                 <p>Items Tracked: <span id="stat-items">0</span></p>
                 <p>Registered Vendors: <span id="stat-vendors">0</span></p>
-                <button id="btn-sync" class="btn">Force Database Refresh</button>
-            </div>
+                <button id="btn-sync" class="outline">Force Database Refresh</button>
+            </article>
         </section>
 
     </main>
@@ -63,7 +62,7 @@
         </button>
         <button class="nav-item" data-target="view-orders">
             <span class="nav-icon">🛒</span>
-            <span class="nav-label">Order Guide</span>
+            <span class="nav-label">Orders</span>
         </button>
         <button class="nav-item" data-target="view-settings">
             <span class="nav-icon">⚙️</span>
@@ -72,7 +71,7 @@
     </nav>
 
     <script>
-        // We will write the app logic here
+        // App logic script engine goes here
     </script>
 </body>
 </html>
