@@ -1,0 +1,69 @@
+/* ==========================================================================
+   PantryPilot Custom Styles (Extends Pico.css)
+   ========================================================================== */
+
+/* Shifting Single-Page Application views */
+.app-view {
+    display: none;
+}
+
+.app-view.active {
+    display: block;
+}
+
+/* Give breathing room at the bottom so content doesn't sit under the navigation bar */
+body {
+    padding-bottom: 90px;
+}
+
+/* Fixed Bottom Mobile Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--pico-background-color);
+    border-top: 1px solid var(--pico-border-color);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+/* Style overrides to turn Pico buttons into structural nav items */
+.bottom-nav button {
+    background: none;
+    border: none;
+    color: var(--pico-muted-color);
+    padding: 5px;
+    margin: 0;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: none;
+    transition: color 0.2s ease;
+}
+
+/* Highlight the active menu button using Pico's native primary theme color */
+.bottom-nav button.active {
+    color: var(--pico-primary);
+}
+
+.bottom-nav .nav-icon {
+    font-size: 1.35rem;
+    margin-bottom: 2px;
+}
+
+/* Mobile Stepper Utility ([ - ] [ Input ] [ + ]) */
+.counter-stepper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.counter-stepper input {
+    text-align: center;
+    margin-bottom: 0; /* Overrides standard form layout spacing in Pico */
+    max-width: 80px;
+}
