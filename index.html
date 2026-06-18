@@ -3,79 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory POC</title>
+    <title>Household Inventory & Budget</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 20px;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 { font-size: 1.5rem; color: #111; }
-        .loading { color: #666; font-style: italic; }
-        .item-card {
-            border-bottom: 1px solid #eee;
-            padding: 10px 0;
-        }
-        .item-card:last-child { border-bottom: none; }
-        .meta { font-size: 0.85rem; color: #666; }
+        /* We will add our CSS styles here in the next step */
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Household Inventory Proof of Concept</h1>
-        <div id="output" class="loading">Fetching data from Google Sheets...</div>
-    </div>
+    <header class="app-header">
+        <h1>PantryPilot</h1>
+        <div id="connection-status" class="status-badge loading">Connecting...</div>
+    </header>
+
+    <main class="app-container">
+
+        <section id="view-inventory" class="app-view active">
+            <nav id="location-tabs" class="tabs-container">
+                </nav>
+
+            <div id="inventory-list" class="items-list">
+                <p class="placeholder-text">Select a location to start counting...</p>
+            </div>
+
+            <div class="action-container">
+                <button id="btn-save-inventory" class="btn btn-primary" disabled>Save Current Location</button>
+            </div>
+        </section>
+
+        <section id="view-orders" class="app-view">
+            <h2>Dynamic Order Guide</h2>
+            <div id="budget-summary" class="budget-card">
+                <h3>Estimated Total: <span id="total-cost">$0.00</span></h3>
+                <div class="progress-bar-container">
+                    <div id="budget-progress" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div id="order-guide-list">
+                <p class="placeholder-text">Complete your inventory check to generate your order list.</p>
+            </div>
+        </section>
+
+        <section id="view-settings" class="app-view">
+            <h2>System Settings</h2>
+            <div class="card">
+                <h3>Database Info</h3>
+                <p>Items Tracked: <span id="stat-items">0</span></p>
+                <p>Registered Vendors: <span id="stat-vendors">0</span></p>
+                <button id="btn-sync" class="btn">Force Database Refresh</button>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-target="view-inventory">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">Inventory</span>
+        </button>
+        <button class="nav-item" data-target="view-orders">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-label">Order Guide</span>
+        </button>
+        <button class="nav-item" data-target="view-settings">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-label">Settings</span>
+        </button>
+    </nav>
 
     <script>
-        // Paste your Apps Script Web App URL inside the quotes below
-        const API_URL = "https://script.google.com/macros/s/AKfycbw2HByzD7YmK6RLxahEE7eOzXpji35rbhQd37FstJ9C9ny-JaWma7OyQHejVSglE1LsMw/exec";
-
-        async function loadData() {
-            const outputDiv = document.getElementById('output');
-            
-            try {
-                // 1. Fetch the JSON from our Google Apps Script
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                // 2. Clear the loading message
-                outputDiv.innerHTML = '';
-                outputDiv.classList.remove('loading');
-
-                // 3. Loop through the items array and print them out
-                if (data.items && data.items.length > 0) {
-                    data.items.forEach(item => {
-                        const itemEl = document.createElement('div');
-                        itemEl.className = 'item-card';
-                        itemEl.innerHTML = `
-                            <strong>${item.item_name}</strong> <br>
-                            <span class="meta">Category: ${item.category} | Counts by: ${item.count_unit}</span>
-                        `;
-                        outputDiv.appendChild(itemEl);
-                    });
-                } else {
-                    outputDiv.textContent = "No items found in the database.";
-                }
-
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                outputDiv.textContent = "Failed to load data. Check console for details.";
-                outputDiv.style.color = "red";
-            }
-        }
-
-        // Run the function when the page loads
-        loadData();
+        // We will write the app logic here
     </script>
 </body>
 </html>
