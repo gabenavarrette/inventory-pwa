@@ -26,6 +26,14 @@ const App = {
 // 2. DOM Initialization & View Switcher Routing
 document.addEventListener("DOMContentLoaded", () => {
     initializeViewSwitcher();
+    
+    // Check if there's a previous walkthrough saved on the phone
+    const savedSession = localStorage.getItem("pantry_pilot_counts");
+    if (savedSession) {
+        App.unsavedCounts = JSON.parse(savedSession);
+        console.log("Restored previous active counting session from cache.");
+    }
+    
     initializeDatabase();
 });
 
